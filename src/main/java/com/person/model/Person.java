@@ -2,6 +2,8 @@ package com.person.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -14,8 +16,7 @@ import javax.validation.constraints.NotEmpty;
 public class Person {
 	@Id
 	@Column
-	@Min(value=1001,message = "must be equal or greater than 1001")
-	@Max(value=2000,message="must be equal or less than 2000")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column

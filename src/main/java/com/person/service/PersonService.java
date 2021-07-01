@@ -27,6 +27,7 @@ public class PersonService implements PersonInterface {
 		logger.info("Add Person Person Id : " + person.getId());
 		Person person1 = null;
 		try {
+			
 			person1 = personRepository.save(person);
 		} catch (Exception e) {
 			throw new PersonException("Error in addPerson Service Layer");

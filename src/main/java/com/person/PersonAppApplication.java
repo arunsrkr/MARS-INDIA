@@ -1,5 +1,7 @@
 package com.person;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,18 +12,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.person.controller.PersonController;
 import com.person.exception.PersonException;
 import com.person.model.Person;
 import com.person.service.PersonInterface;
 
-
 @SpringBootApplication
 public class PersonAppApplication implements CommandLineRunner {
 
-
-	
 	@Autowired
 	PersonInterface service;
+	
+	@Autowired
+	PersonController controller;
 
 	private static final Logger logger = LoggerFactory.getLogger(PersonAppApplication.class);
 
@@ -31,7 +37,7 @@ public class PersonAppApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws PersonException {
+	public void run(String... args) throws PersonException, IOException {
 
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
@@ -52,22 +58,20 @@ public class PersonAppApplication implements CommandLineRunner {
 
 			case 1:
 				boolean addFlag = false;
-				Person person = new Person();
-				System.out.println("Enter Person Id");
-				person.setId(sc.nextInt());
-
-				System.out.println("Enter Person First name");
-				person.setFirstName(sc.next());
-
-				System.out.println("Enter Person Surname");
-				person.setSurName(sc.next());
 				try {
-					service.addPerson(person);
-				} catch (PersonException e) {
-					addFlag = true;
-					System.out.println(e.getMsg());
-					logger.error(e.getMsg());
 					
+					//String request = (new ObjectMapper()).writeValueAsString(person);
+					//controller.addPerson(request);
+					ObjectMapper mapper = new ObjectMapper();
+					TypeReference<Person> typeReference = new TypeReference<Person>(){};
+					InputStream inputStream = TypeReference.class.getResourceAsStream("/json/person.json");
+					Person person = mapper.readValue(inputStream,typeReference);
+					service.addPerson(person);
+
+				} catch (Exception e) {
+					addFlag = true;
+					e.printStackTrace();
+					logger.error("Exception occured in addPerson() method");
 				}
 
 				if (!addFlag)
@@ -77,19 +81,15 @@ public class PersonAppApplication implements CommandLineRunner {
 			case 2:
 
 				boolean editFlag = false;
-				Person person1 = new Person();
-				System.out.println("Enter Person Id");
-				person1.setId(sc.nextInt());
-
-				System.out.println("Enter Person firstname to update");
-				person1.setFirstName(sc.next());
-
-				System.out.println("Enter Person Surname to update");
-				person1.setSurName(sc.next());
 
 				try {
-					service.editPerson(person1);
-				} catch(Exception e) {
+					ObjectMapper mapper = new ObjectMapper();
+					TypeReference<Person> typeReference = new TypeReference<Person>(){};
+					InputStream inputStream = TypeReference.class.getResourceAsStream("/json/person1.json");
+					 Person person = mapper.readValue(inputStream,typeReference);
+
+					service.editPerson(person);
+				} catch (Exception e) {
 					editFlag = true;
 					System.out.println("Error in editPerson method");
 					logger.error("Error in editPerson method");
@@ -125,14 +125,14 @@ public class PersonAppApplication implements CommandLineRunner {
 				}
 				break;
 			case 5:
-				
+
 				try {
 					List<Person> persons = service.getAllPersons();
-					
-					for(Person person2:persons)
-						System.out.println(person2.getId()+"--"+person2.getFirstName()+"--"+person2.getSurName());
-				}
-				catch(Exception e) {
+
+					for (Person person2 : persons)
+						System.out
+								.println(person2.getId() + "--" + person2.getFirstName() + "--" + person2.getSurName());
+				} catch (Exception e) {
 					System.out.println("Error in getAllPersons method ");
 					logger.error("Error in getAllPersons method ");
 				}
