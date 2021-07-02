@@ -34,13 +34,13 @@ public class PersonController {
 	 * addPerson(Person) method will take Person Object as an input and it will communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
-	@PostMapping("/addPerson")
+	@PostMapping("/addperson")
 	
-	public ResponseEntity<String> addPerson(@Valid @RequestBody Person person) throws PersonException {
+	public ResponseEntity<Person> addPerson(@Valid @RequestBody Person person) throws PersonException {
 		logger.info("Request received in addPerson() method");
 		Person person1 = personService.addPerson(person);
 		
-		return new ResponseEntity<String>(HttpStatus.OK);
+		return new ResponseEntity<Person>(person1,HttpStatus.OK);
 	}
 	
 	/*
@@ -48,7 +48,7 @@ public class PersonController {
 	 * and return ResponseEntity Object.
 	 * */
 	
-	@PutMapping("/editPerson")
+	@PutMapping("/editperson")
 	public ResponseEntity<Person> editPerson(@RequestBody Person person) {
 		logger.info("Request received in editPerson() method");
 		Person person1 = personService.editPerson(person);
