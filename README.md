@@ -14,6 +14,12 @@
 choose Run As and click Spring Boot App.
 11.Now Embedded tomcat will be started.
 
+12.If we want to execute command line runner code,we need to pass one argument as command line argument.
+
+a)right click on the PersonAppApplication.java file.
+b)Run As--->Run Configurations
+c)Arguments-->Program Arguments.
+d)give any argument e.g: cli
 
 ================================================
 

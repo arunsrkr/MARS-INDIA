@@ -24,8 +24,8 @@ import com.person.model.Person;
 import com.person.service.PersonService;
 
 @RestController
-@RequestMapping("/api/person")
 public class PersonController {
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
@@ -34,7 +34,7 @@ public class PersonController {
 	 * addPerson(Person) method will take Person Object as an input and it will communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
-	@PostMapping("/addperson")
+	@PostMapping("/person")
 	
 	public ResponseEntity<Person> addPerson(@Valid @RequestBody Person person) throws PersonException {
 		logger.info("Request received in addPerson() method");
@@ -48,7 +48,7 @@ public class PersonController {
 	 * and return ResponseEntity Object.
 	 * */
 	
-	@PutMapping("/editperson")
+	@PutMapping("/person")
 	public ResponseEntity<Person> editPerson(@RequestBody Person person) {
 		logger.info("Request received in editPerson() method");
 		Person person1 = personService.editPerson(person);
@@ -60,7 +60,7 @@ public class PersonController {
 	 * and return ResponseEntity Object.
 	 * */
 	
-	@DeleteMapping("/deleteperson/{id}")
+	@DeleteMapping("/person/{id}")
 	public ResponseEntity<String> deletePerson(@PathVariable("id") int id) throws PersonException {
 		logger.info("Request received in deletePerson() method");
 		
@@ -78,7 +78,7 @@ public class PersonController {
 	 * and return ResponseEntity Object.
 	 * */
 	
-	@GetMapping("/allpersons")
+	@GetMapping("/person/all")
 	public ResponseEntity<List<Person>> getAllPersons() throws PersonException {
 		logger.info("Request received in getAllPersons() method");	
 		List<Person> persons = personService.getAllPersons();
@@ -86,12 +86,12 @@ public class PersonController {
 		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * getNumberOfPersons() method will communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
 	
-	@GetMapping("/countall")
+	@GetMapping("/person/count")
 	public ResponseEntity<Integer> getNumberOfPersons() throws PersonException {
 		logger.info("Request received in getNumberOfPersons() method");
 		List<Person> persons = personService.getAllPersons();
