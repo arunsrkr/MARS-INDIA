@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class PersonAppApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws PersonException, IOException {
 		
-		if(args.length>1) {
+		if(args.length>0) {
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 
@@ -61,13 +62,20 @@ public class PersonAppApplication implements CommandLineRunner {
 			case 1:
 				boolean addFlag = false;
 				try {
+					System.out.println("Enter first name");
+					String firstName = sc.next();
+					System.out.println("Enter surName");
+					String surName = sc.next();
+					String json="{\"firstName\":\""+firstName
+							+ "\",\"surName\":\""+surName+ "\"}";
+					System.out.println(json);
 					
 					//String request = (new ObjectMapper()).writeValueAsString(person);
 					//controller.addPerson(request);
 					ObjectMapper mapper = new ObjectMapper();
 					TypeReference<Person> typeReference = new TypeReference<Person>(){};
 					InputStream inputStream = TypeReference.class.getResourceAsStream("/json/person.json");
-					Person person = mapper.readValue(inputStream,typeReference);
+					Person person = mapper.readValue(json,typeReference);
 					service.addPerson(person);
 
 				} catch (Exception e) {
