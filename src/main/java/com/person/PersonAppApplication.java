@@ -39,7 +39,8 @@ public class PersonAppApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws PersonException, IOException {
-
+		
+		if(args.length>1) {
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 
@@ -151,10 +152,12 @@ public class PersonAppApplication implements CommandLineRunner {
 			else {
 				flag = false;
 				System.out.println("Thanks for using the Application.");
+				System.exit(0);
 			}
 
 		}
-
+		}
+		
 	}
 
 }
