@@ -47,8 +47,8 @@ class PersonAppApplicationTests {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 
-	/*
-	 * addPersonTest() method will test "/api/person/addPerson".
+	/**
+	 * addPersonTest() method will POST method.
 	 */
 
 	@Test
@@ -59,7 +59,7 @@ class PersonAppApplicationTests {
 		person.setSurName("kumar");
 		String body = (new ObjectMapper()).writeValueAsString(person);
 		MvcResult mvcResult = mockMvc
-				.perform(post("/api/person/addperson").content(body).contentType(MediaType.APPLICATION_JSON))
+				.perform(post("/person").content(body).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
@@ -68,8 +68,8 @@ class PersonAppApplicationTests {
 
 	}
 
-	/*
-	 * editPersonTest() method will test "/api/person/editPerson".
+	/**
+	 * editPersonTest() method will test PUT method.
 	 */
 	@Test
 	public void editPersonTest() throws Exception {
@@ -79,7 +79,7 @@ class PersonAppApplicationTests {
 		person.setSurName("kumar");
 		String body = (new ObjectMapper()).writeValueAsString(person);
 		MvcResult mvcResult = mockMvc
-				.perform(put("/api/person/editperson").content(body).contentType(MediaType.APPLICATION_JSON))
+				.perform(put("/person").content(body).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
@@ -88,13 +88,13 @@ class PersonAppApplicationTests {
 
 	}
 
-	/*
-	 * deletePersonTest() method will test "/api/person/deleteperson/1".
+	/**
+	 * deletePersonTest() method will test DELETE method.
 	 */
 	@Test
 	public void deletepersonTest() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		MvcResult mvcResult = mockMvc.perform(delete("/api/person/deleteperson/1")).andExpect(status().isOk())
+		MvcResult mvcResult = mockMvc.perform(delete("/person/1")).andExpect(status().isOk())
 				.andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
@@ -103,13 +103,13 @@ class PersonAppApplicationTests {
 
 	}
 
-	/*
-	 * getAllPersonsTest() method will test "/api/person/allpersons".
+	/**
+	 * getAllPersonsTest() method will test GET method.
 	 */
 	@Test
 	public void getAllPersonsTest() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		MvcResult mvcResult = mockMvc.perform(get("/api/person/allpersons")).andExpect(status().isOk()).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get("/person/all")).andExpect(status().isOk()).andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
 
@@ -117,13 +117,13 @@ class PersonAppApplicationTests {
 
 	}
 
-	/*
-	 * getNumberOfPersonsTest() method will test "/api/person/countall".
+	/**
+	 * getNumberOfPersonsTest() method will test GET method.
 	 */
 	@Test
 	public void getNumberOfPersonsTest() throws Exception { 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		MvcResult mvcResult = mockMvc.perform(get("/api/person/countall")).andExpect(status().isOk()).andReturn();
+		MvcResult mvcResult = mockMvc.perform(get("/person/all")).andExpect(status().isOk()).andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
 

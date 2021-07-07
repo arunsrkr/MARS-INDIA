@@ -16,7 +16,7 @@ public class PersonService implements PersonInterface {
 	@Autowired
 	PersonRepository personRepository;
 
-	/*
+	/**
 	 * addPerson(Person) method will take Person Object as an input and it will
 	 * communicate with Repository and insert the Person details into database and
 	 * it will return Person Object
@@ -35,7 +35,7 @@ public class PersonService implements PersonInterface {
 		return person1;
 	}
 
-	/*
+	/**
 	 * getAllPersons() method will communicate with Repository and It will return
 	 * the List<Persons> Objects from database.
 	 */
@@ -53,7 +53,7 @@ public class PersonService implements PersonInterface {
 
 	}
 
-	/*
+	/**
 	 * editPerson(Person) method will take Person Object as an input and it will
 	 * communicate with Repository and it will update the Person details in database
 	 * and it will return updated Person Object
@@ -71,7 +71,7 @@ public class PersonService implements PersonInterface {
 		return person1;
 	}
 
-	/*
+	/**
 	 * deletePerson(int) method will communicate with Repository and It will delete
 	 * the corresponding record from database and it will return a String.
 	 */

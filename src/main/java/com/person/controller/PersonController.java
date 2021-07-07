@@ -30,7 +30,7 @@ public class PersonController {
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
 	@Autowired PersonService personService;
-	/*
+	/**
 	 * addPerson(Person) method will take Person Object as an input and it will communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
@@ -43,7 +43,7 @@ public class PersonController {
 		return new ResponseEntity<Person>(person1,HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * editPerson(Person) method will take Person Object as an input and it will communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
@@ -55,7 +55,7 @@ public class PersonController {
 		return new ResponseEntity<Person>(person1, HttpStatus.OK);
 	}
 	
-	/*
+	/**
 	 * deletePerson(int) method will take an integer(id) value as an input and it will communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
@@ -73,7 +73,7 @@ public class PersonController {
 	
 	
     
-	/*
+	/**
 	 * getAllPersons() method will  communicate with Service Layer
 	 * and return ResponseEntity Object.
 	 * */
